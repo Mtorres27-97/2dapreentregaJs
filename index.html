@@ -1,27 +1,63 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Botillería Gran Avenida Preentrega3 Matias Torres</title>
     <link rel="stylesheet" href="./css/styles.css">
 </head>
+
 <body>
-<body>
-    <header>
-        <h1>Botillería Gran Avenida</h1>
-        <div class="cart-container">
-            <button id="viewCart">Ver Carrito (<span id="cartCount">0</span>)</button>
+
+    <body>
+        <header>
+            <h1>Botillería Online</h1>
+            <div class="user-container">
+                <button onclick="mostrarRegistro()">Registrarse</button>
+                <button onclick="mostrarLogin()">Iniciar Sesión</button>
+                <button onclick="cerrarSesion()">Cerrar Sesión</button>
+            </div>
+            <div class="cart-container">
+                <button id="viewCart">Ver Carrito (<span id="cartCount">0</span>)</button>
+            </div>
+        </header>
+
+        <main>
+            <h2>Nuestros Productos</h2>
+            <div id="products" class="product-grid"></div>
+        </main>
+
+        <!-- Modal para mostrar el carrito -->
+        <div id="cartModal" class="modal" style="display:none;">
+            <!-- El contenido del carrito se llenará dinámicamente en JavaScript -->
         </div>
-    </header>
+        <!-- Formulario de registro -->
+        <div id="registerForm" class="modal" style="display:none;">
+            <div class="modal-content">
+                <h2>Registrar Usuario</h2>
+                <input type="text" id="registerUsername" placeholder="Usuario">
+                <input type="password" id="registerPassword" placeholder="Clave">
+                <button onclick="registrarUsuario(
+                    document.getElementById('registerUsername').value, 
+                    document.getElementById('registerPassword').value)">Registrar</button>
+                <button onclick="cerrarFormulario()">Cerrar</button>
+            </div>
+        </div>
 
-    <main>
-        <h2>Nuestros Productos</h2>
-        <div id="products" class="product-grid"></div>
-    </main>
-    <!-- Modal para mostrar el carrito -->
-    <div id="cartModal" class="modal" style="display:none;"></div>
+        <!-- Formulario de login -->
+        <div id="loginForm" class="modal" style="display:none;">
+            <div class="modal-content">
+                <h2>Iniciar Sesión</h2>
+                <input type="text" id="loginUsername" placeholder="Usuario">
+                <input type="password" id="loginPassword" placeholder="Clave">
+                <button onclick="iniciarSesion(
+                    document.getElementById('loginUsername').value, 
+                    document.getElementById('loginPassword').value)">Iniciar Sesión</button>
+                <button onclick="cerrarFormulario()">Cerrar</button>
+            </div>
+        </div>
+        <script src="./js/main.js"></script>
+    </body>
 
-    <script src="./js/main.js"></script>
-</body>
 </html>

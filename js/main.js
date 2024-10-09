@@ -48,8 +48,74 @@ const productos = [
     // Más productos...
 ];
 
-// Carrito de compras
-let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+// Gestión de usuarios
+let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+let usuarioActivo = JSON.parse(localStorage.getItem('usuarioActivo')) || null;
+
+// Carrito de compras: Solo se accede si el usuario ha iniciado sesión
+let carrito = usuarioActivo ? usuarioActivo.carrito : [];
+
+// Función para mostrar el formulario de registro
+function mostrarRegistro() {
+    document.getElementById('registerForm').style.display = 'block';
+    document.getElementById('loginForm').style.display = 'none'; // Ocultar el formulario de login
+}
+
+// Función para mostrar el formulario de inicio de sesión
+function mostrarLogin() {
+    document.getElementById('loginForm').style.display = 'block';
+    document.getElementById('registerForm').style.display = 'none'; // Ocultar el formulario de registro
+}
+
+// Función para cerrar formularios emergentes
+function cerrarFormulario() {
+    document.getElementById('registerForm').style.display = 'none';
+    document.getElementById('loginForm').style.display = 'none';
+}
+
+// Función para registrar un nuevo usuario
+function registrarUsuario(nombreUsuario, clave) {
+    const usuarioExistente = usuarios.find(user => user.nombreUsuario === nombreUsuario);
+
+    if (usuarioExistente) {
+        alert('El nombre de usuario ya está en uso. Elige otro.');
+    } else {
+        const nuevoUsuario = {
+            nombreUsuario,
+            clave,
+            carrito: [] // Carrito inicial vacío para cada usuario nuevo
+        };
+        usuarios.push(nuevoUsuario);
+        localStorage.setItem('usuarios', JSON.stringify(usuarios));
+        alert('Usuario registrado con éxito. Ahora puedes iniciar sesión.');
+        cerrarFormulario();
+    }
+}
+
+// Función para iniciar sesión
+function iniciarSesion(nombreUsuario, clave) {
+    const usuario = usuarios.find(user => user.nombreUsuario === nombreUsuario && user.clave === clave);
+
+    if (usuario) {
+        usuarioActivo = usuario;
+        localStorage.setItem('usuarioActivo', JSON.stringify(usuarioActivo));
+        carrito = usuarioActivo.carrito;
+        actualizarCarrito();
+        alert(`¡Bienvenido, ${nombreUsuario}!`);
+        cerrarFormulario();
+    } else {
+        alert('Nombre de usuario o clave incorrectos.');
+    }
+}
+
+// Función para cerrar sesión
+function cerrarSesion() {
+    usuarioActivo = null;
+    carrito = [];
+    localStorage.removeItem('usuarioActivo');
+    actualizarCarrito();
+    alert('Has cerrado sesión.');
+}
 
 // Función para renderizar los productos en el HTML
 function mostrarProductos() {
@@ -72,25 +138,36 @@ function mostrarProductos() {
 
 // Función para agregar un producto al carrito
 function agregarAlCarrito(id) {
+    if (!usuarioActivo) {
+        alert('Debes iniciar sesión para agregar productos al carrito.');
+        return;
+    }
     const producto = productos.find(prod => prod.id === id);
     carrito.push(producto);
+    usuarioActivo.carrito = carrito;
     actualizarCarrito();
 }
 
 // Función para eliminar un producto específico del carrito
 function eliminarProducto(id) {
     carrito = carrito.filter(producto => producto.id !== id);
+    usuarioActivo.carrito = carrito;
     actualizarCarrito();
 }
 
 // Función para vaciar el carrito completo
 function vaciarCarrito() {
     carrito = [];
+    usuarioActivo.carrito = carrito;
     actualizarCarrito();
 }
 
 // Función para simular el pago del carrito
 function pagarCarrito() {
+    if (!usuarioActivo) {
+        alert('Debes iniciar sesión para realizar el pago.');
+        return;
+    }
     if (carrito.length > 0) {
         alert(`Has pagado $${calcularTotalCarrito()} por los productos. ¡Gracias por tu compra!`);
         vaciarCarrito();
@@ -126,20 +203,51 @@ function calcularTotalCarrito() {
     return carrito.reduce((total, producto) => total + producto.precio, 0);
 }
 
-// Función para guardar el carrito en localStorage
+// Función para guardar el carrito del usuario activo en localStorage
 function guardarCarritoEnJSON() {
-    const carritoJSON = JSON.stringify(carrito);
-    localStorage.setItem('carrito', carritoJSON);
+    if (usuarioActivo) {
+        localStorage.setItem('usuarioActivo', JSON.stringify(usuarioActivo));
+    }
+}
+// Función para abrir el carrito
+function abrirCarrito() {
+    if (!usuarioActivo) {
+        alert('Debes iniciar sesión para ver el carrito.');
+        return;
+    }
+    document.getElementById('cartModal').style.display = 'block'; // Mostrar el modal del carrito
 }
 
-// Función para ver el carrito y mostrarlo en un modal
-document.getElementById('viewCart').addEventListener('click', () => {
-    const cartModal = document.getElementById('cartModal');
-    cartModal.style.display = 'block'; // Mostrar el modal del carrito
-});
+// Función para cerrar el carrito
+function cerrarCarrito() {
+    document.getElementById('cartModal').style.display = 'none'; // Ocultar el modal del carrito
+}
+// Añadimos el evento para abrir el carrito cuando se haga clic en "Ver Carrito"
+document.getElementById('viewCart').addEventListener('click', abrirCarrito);
+
+// Función para actualizar la vista del carrito (con botón para cerrar el modal)
+function actualizarCarrito() {
+    const cartCount = document.getElementById('cartCount');
+    cartCount.textContent = carrito.length;
+
+    // Mostrar los detalles del carrito en el modal
+    const cartDetails = carrito.map(item => `
+        ${item.nombre} - $${item.precio} 
+        <button onclick="eliminarProducto(${item.id})">Eliminar</button>
+    `).join('<br>');
+
+    document.getElementById('cartModal').innerHTML = `
+        <h3>Tu Carrito:</h3>
+        <div>${cartDetails}</div>
+        <p>Total: $${calcularTotalCarrito()}</p>
+        <button onclick="vaciarCarrito()">Vaciar Carrito</button>
+        <button onclick="pagarCarrito()">Pagar</button>
+        <button onclick="cerrarCarrito()">Cerrar</button> <!-- Botón para cerrar -->
+    `;
+
+    guardarCarritoEnJSON();
+}
 
 // Inicialización
 mostrarProductos();
 actualizarCarrito();
-
-
