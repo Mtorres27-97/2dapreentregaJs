@@ -3,12 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/styles.css">
-    <title>Botilleria Gran avenida, Preentrega 2 M.Torres</title>
+    <title>Botillería Gran Avenida Preentrega3 Matias Torres</title>
+    <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
-    <h1>Calculadora de Carrito de Botillería</h1>
-    <button onclick="manejarCompra()">Iniciar Carrito</button>
-    <script src="js/main.js"></script>
+<body>
+    <header>
+        <h1>Botillería Gran Avenida</h1>
+        <div class="cart-container">
+            <button id="viewCart">Ver Carrito (<span id="cartCount">0</span>)</button>
+        </div>
+    </header>
+
+    <main>
+        <h2>Nuestros Productos</h2>
+        <div id="products" class="product-grid"></div>
+    </main>
+    <!-- Modal para mostrar el carrito -->
+    <div id="cartModal" class="modal" style="display:none;"></div>
+
+    <script src="./js/main.js"></script>
 </body>
 </html>
