@@ -4,28 +4,467 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Botillería Gran Avenida Preentrega3 Matias Torres</title>
+    <title>Botillería
+        Gran Avenida- Carrito de Compras</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://fonts.cdnfonts.com/css/photograph-signature" rel="stylesheet">
     <link rel="stylesheet" href="./css/styles.css">
 </head>
+
+
 
 <body>
 
     <body>
-        <header>
-            <h1>Botillería Online</h1>
-            <div class="user-container">
-                <button onclick="mostrarRegistro()">Registrarse</button>
-                <button onclick="mostrarLogin()">Iniciar Sesión</button>
-                <button onclick="cerrarSesion()">Cerrar Sesión</button>
-            </div>
-            <div class="cart-container">
-                <button id="viewCart">Ver Carrito (<span id="cartCount">0</span>)</button>
-            </div>
+        <header id="header" class="header">
+            <img class="logoGA" src="./img/frontal-5x1-borde.png" alt="">
+            <nav class="navbar navbar-expand-lg fixed-top">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="./index.html">
+                        <img class="logo" src="./img/Licoreria-GA-v2-blanco.png" alt="Logo Licorería GA">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                        aria-labelledby="offcanvasNavbarLabel">
+                        <div class="offcanvas-header">
+                            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+                                <img class="logo" src="./img/logo_transparent_background.png" alt="Logo">
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
+                                <li class="nav-item">
+                                    <a class="nav-link active mx-lg-2" aria-current="page" href="./index.html">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link mx-lg-2" href="./pages/nosotros.html">Nosotros</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link mx-lg-2" href="./pages/servicios.html">Cervezas</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link mx-lg-2" href="./pages/galeria.html">Destilados</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link mx-lg-2" href="./pages/contacto.html">Otros</a>
+                                </li>
+                            </ul>
+
+                            <!-- Menú de usuario tipo hamburguesa -->
+                            <div class="user-container ms-auto">
+                                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                                    data-bs-target="#offcanvasUser" aria-controls="offcanvasUser"
+                                    aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+
+                                <!-- Menú desplegable de usuario -->
+                                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasUser"
+                                    aria-labelledby="offcanvasUserLabel">
+                                    <div class="offcanvas-header">
+                                        <h5 class="offcanvas-title" id="offcanvasUserLabel">Menú de Usuario</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="offcanvas-body nav-link">
+                                        <button onclick="mostrarRegistro()" id="btnRegistro"
+                                            class="btn btn-primary w-100 mb-2">Registro</button>
+                                        <button onclick="mostrarLogin()" id="btnLogin"
+                                            class="btn btn-secondary w-100 mb-2"><img class="user" src="./img/hombre-avatar.png" alt=""></button>
+                                        <button onclick="cerrarSesion()" id="btnLogout" class="btn btn-danger w-100"
+                                            style="display:none;">Cerrar Sesión</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Botón del carrito de compras -->
+                            <div class="cart-container navlink">
+                                <button id="viewCart"><img src="./img/carrito-de-compras.png" alt="">(<span id="cartCount"></span>)</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
         </header>
 
         <main>
             <h2>Nuestros Productos</h2>
-            <div id="products" class="product-grid"></div>
+            <div id="products" class="product-grid">
+                <div class="product-card cardindex">
+                    <img src="./img/cerveza-torobayo-330ml.jpg" alt="CERVEZA ARTESANAL TOROBAYO KUNSTMANN 330 ML">
+                    <h3>Cerveza artesanal torobayo kunstmann 330ml</h3>
+                    <p>Precio: $1800</p>
+                    <button onclick="agregarAlCarrito(1)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="./img/cerveza-austral-calafate-330ml.png" alt="CERVEZA AUSTRAL CALAFATE BOTELLA 330 ML">
+                    <h3>Cerveza Austral Calafate Botella 330ml</h3>
+                    <p>Precio: $1900</p>
+                    <button onclick="agregarAlCarrito(2)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="./img/cerveza-austral-calafate-500ml.png" alt="CERVEZA AUSTRAL CALAFATE BOTELLA 500 ML">
+                    <h3>Cerveza Austral Calafate 500ml</h3>
+                    <p>Precio: $2200</p>
+                    <button onclick="agregarAlCarrito(3)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="./img/cerveza-austral-calafate-pack.png" alt="CERVEZA AUSTRAL CALAFATE BOTELLA PACK 4 X 330 ML">
+                    <h3>Cerveza Austral Calafate pack 4 x 330mlL</h3>
+                    <p>Precio: $7500</p>
+                    <button onclick="agregarAlCarrito(4)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="./img/cerveza-austral-lager-330ml.png" alt="CERVEZA AUSTRAL LAGER BOTELLA 330 ML">
+                    <h3>Cerveza Austral Lager botella 330ml</h3>
+                    <p>Precio: $1800</p>
+                    <button onclick="agregarAlCarrito(5)">Agregar al carrito</button>
+                </div>
+                <div class="product-card cardindex">
+                    <img src="./img/torres-del-paine-austral.png" alt="CERVEZA AUSTRAL TORRES DEL PAINE 5.0° - BOTELLA 500 ML">
+                    <h3>Cerveza Austral Torres Del Paine 5.0° - 500ml</h3>
+                    <p>Precio: $2200</p>
+                    <button onclick="agregarAlCarrito(7)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="./img/cerveza-becker-classic.png" alt="CERVEZA BECKER CLASSIC LAGER LATA 473 ML">
+                    <h3>Cerveza Becker Classic Lagger Lata 330ml</h3>
+                    <p>Precio: $900</p>
+                    <button onclick="agregarAlCarrito(8)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="./img/cerveza-becker-golden.png" alt="CERVEZA BECKER GOLDEN LATA 473 ML">
+                    <h3>Cerveza Becker Golden Lata 473ml</h3>
+                    <p>Precio: $1000</p>
+                    <button onclick="agregarAlCarrito(9)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="./img/cerveza-budweiser-botella.png" alt="CERVEZA BUDWEISER BOTELLA 330 CC">
+                    <h3>Cerveza Budweiser Botella 330ml</h3>
+                    <p>Precio: $1200</p>
+                    <button onclick="agregarAlCarrito(10)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="./img/cerveza-budweiser-laton.png" alt="CERVEZA BUDWEISER LATON 710 ML">
+                    <h3>Cerveza Budweiser Latón 710ml</h3>
+                    <p>Precio: $1200</p>
+                    <button onclick="agregarAlCarrito(11)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="./img/cerveza-coors-botella.png" alt="CERVEZA COORS BOTELLA 355CC">
+                    <h3>Cerveza Coors Botella 355ml</h3>
+                    <p>Precio: $1200</p>
+                    <button onclick="agregarAlCarrito(12)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="./img/cerveza-coors-pack (1).png" alt="CERVEZA COORS BOTELLA PACK 6 X 355 ML">
+                    <h3>Cerveza Coors Botella Pack 6 X 355ml</h3>
+                    <p>Precio: $6500</p>
+                    <button onclick="agregarAlCarrito(13)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="./img/cerveza-coors-maleta.png" alt="CERVEZA COORS MALETA 12 LATAS 350ML">
+                    <h3>Cerveza Coors Maleta 12 unidades 330ml</h3>
+                    <p>Precio: $12000</p>
+                    <button onclick="agregarAlCarrito(14)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="./img/cerveza-coors-original.png" alt="CERVEZA COORS ORIGINAL LATA 710CC">
+                    <h3>Cerveza Coors Original Lata 710ml</h3>
+                    <p>Precio: $1300</p>
+                    <button onclick="agregarAlCarrito(15)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="./img/cerveza-corona-botellin.png" alt="CERVEZA CORONA BOTELLIN 330 ML">
+                    <h3>Cerveza Corona Botellin 330ml</h3>
+                    <p>Precio: $1200</p>
+                    <button onclick="agregarAlCarrito(16)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-corona-pack.jpg" alt="CERVEZA CORONA PACK 6 UN 330 ML">
+                    <h3>CERVEZA CORONA PACK 6 UN 330 ML</h3>
+                    <p>Precio: $6200</p>
+                    <button onclick="agregarAlCarrito(17)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-cristal-lata-pack.jpg" alt="CERVEZA CRISTAL LATA PACK 6 X 470 ML">
+                    <h3>CERVEZA CRISTAL LATA PACK 6 X 470 ML</h3>
+                    <p>Precio: $5700</p>
+                    <button onclick="agregarAlCarrito(18)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-cristal-radler.jpg" alt="CERVEZA CRISTAL RADLER SIN ALCOHOL, 350 ML">
+                    <h3>CERVEZA CRISTAL RADLER SIN ALCOHOL, 350 ML</h3>
+                    <p>Precio: $1000</p>
+                    <button onclick="agregarAlCarrito(19)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-cristal-retornable.jpg" alt="CERVEZA CRISTAL RETORNABLE 1,2 LT">
+                    <h3>CERVEZA CRISTAL RETORNABLE 1,2 LT</h3>
+                    <p>Precio: $1500</p>
+                    <button onclick="agregarAlCarrito(20)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-cristal-lata.jpg" alt="CERVEZA CRISTAL LATA 350 ML">
+                    <h3>CERVEZA CRISTAL LATA 350 ML</h3>
+                    <p>Precio: $900</p>
+                    <button onclick="agregarAlCarrito(21)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-cristal-pack24.jpg" alt="CERVEZA CRISTAL LATA PACK 24 X 355 ML">
+                    <h3>CERVEZA CRISTAL LATA PACK 24 X 355 ML</h3>
+                    <p>Precio: $20500</p>
+                    <button onclick="agregarAlCarrito(22)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-cristal-laton.jpg" alt="CERVEZA CRISTAL LATON 470ML">
+                    <h3>CERVEZA CRISTAL LATON 470ML</h3>
+                    <p>Precio: $1200</p>
+                    <button onclick="agregarAlCarrito(23)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-kunstmann-torobayo-6x330ml.jpg" alt="CERVEZA KUNSTMANN TOROBAYO PACK 6X330 ML">
+                    <h3>CERVEZA KUNSTMANN TOROBAYO PACK 6X330 ML</h3>
+                    <p>Precio: $8900</p>
+                    <button onclick="agregarAlCarrito(24)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-kunstmann-6x355ml.jpg" alt="CERVEZA KUNSTMANN PACK 6 X 355 ML">
+                    <h3>CERVEZA KUNSTMANN PACK 6 X 355 ML</h3>
+                    <p>Precio: $8900</p>
+                    <button onclick="agregarAlCarrito(25)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-heineken-lata.jpg" alt="CERVEZA HEINEKEN LATA 350 CC">
+                    <h3>CERVEZA HEINEKEN LATA 350 CC</h3>
+                    <p>Precio: $1200</p>
+                    <button onclick="agregarAlCarrito(26)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-heineken-pack.jpg" alt="CERVEZA HEINEKEN PACK 6 X 330 ML">
+                    <h3>CERVEZA HEINEKEN PACK 6 X 330 ML</h3>
+                    <p>Precio: $6800</p>
+                    <button onclick="agregarAlCarrito(27)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-kross5-330ml.jpg" alt="CERVEZA KROSS 5 330 ML">
+                    <h3>CERVEZA KROSS 5 330 ML</h3>
+                    <p>Precio: $1900</p>
+                    <button onclick="agregarAlCarrito(28)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-kross-golden.jpg" alt="CERVEZA KROSS GOLDEN LATA 350 ML">
+                    <h3>CERVEZA KROSS GOLDEN LATA 350 ML</h3>
+                    <p>Precio: $1600</p>
+                    <button onclick="agregarAlCarrito(29)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-latitud-47-botella.jpg" alt="CERVEZA LATITUD 47 BOTELLA 355 CC">
+                    <h3>CERVEZA LATITUD 47 BOTELLA 355 CC</h3>
+                    <p>Precio: $1400</p>
+                    <button onclick="agregarAlCarrito(30)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-royal.jpg" alt="CERVEZA ROYAL GUARD BOTELLA 330CC">
+                    <h3>CERVEZA ROYAL GUARD BOTELLA 330CC</h3>
+                    <p>Precio: $1200</p>
+                    <button onclick="agregarAlCarrito(31)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-stella-botella.jpg" alt="CERVEZA STELLA ARTOIS BOTELLA 330 ML">
+                    <h3>CERVEZA STELLA ARTOIS BOTELLA 330 ML</h3>
+                    <p>Precio: $1400</p>
+                    <button onclick="agregarAlCarrito(32)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-stella-pack.jpg" alt="CERVEZA STELLA ARTOIS PACK 6 X 330 ML">
+                    <h3>CERVEZA STELLA ARTOIS PACK 6 X 330 ML</h3>
+                    <p>Precio: $6800</p>
+                    <button onclick="agregarAlCarrito(33)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-stella-lata.jpg" alt="CERVEZA STELLA ARTOIS LATA 473 ML">
+                    <h3>CERVEZA STELLA ARTOIS LATA 473 ML</h3>
+                    <p>Precio: $1500</p>
+                    <button onclick="agregarAlCarrito(34)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-stella-longneck.jpg" alt="CERVEZA STELLA LONG NECK 330 ML">
+                    <h3>CERVEZA STELLA LONG NECK 330 ML</h3>
+                    <p>Precio: $1200</p>
+                    <button onclick="agregarAlCarrito(35)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-escudo-lata.jpg" alt="CERVEZA ESCUDO LATA 473 ML">
+                    <h3>CERVEZA ESCUDO LATA 473 ML</h3>
+                    <p>Precio: $1000</p>
+                    <button onclick="agregarAlCarrito(36)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-sol-botella.jpg" alt="CERVEZA SOL BOTELLA 355 CC">
+                    <h3>CERVEZA SOL BOTELLA 355 CC</h3>
+                    <p>Precio: $1200</p>
+                    <button onclick="agregarAlCarrito(37)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-sol-lata.jpg" alt="CERVEZA SOL LATA 355 ML">
+                    <h3>CERVEZA SOL LATA 355 ML</h3>
+                    <p>Precio: $1200</p>
+                    <button onclick="agregarAlCarrito(38)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-sol-pack.jpg" alt="CERVEZA SOL PACK 6 UN 355ML">
+                    <h3>CERVEZA SOL PACK 6 UN 355ML</h3>
+                    <p>Precio: $6200</p>
+                    <button onclick="agregarAlCarrito(39)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-cristal-retornable-pack.jpg" alt="CERVEZA CRISTAL RETORNABLE PACK 6X1 LT">
+                    <h3>CERVEZA CRISTAL RETORNABLE PACK 6X1 LT</h3>
+                    <p>Precio: $7200</p>
+                    <button onclick="agregarAlCarrito(40)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-baltika9.jpg" alt="CERVEZA BALTIKA 9 8.0° LATA 450ML">
+                    <h3>CERVEZA BALTIKA 9 8.0° LATA 450ML</h3>
+                    <p>Precio: $1600</p>
+                    <button onclick="agregarAlCarrito(41)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-baltika7.jpg" alt="CERVEZA BALTIKA 7 5.4° LATA 450ML">
+                    <h3>CERVEZA BALTIKA 7 5.4° LATA 450ML</h3>
+                    <p>Precio: $1500</p>
+                    <button onclick="agregarAlCarrito(42)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-blue-moon-botella.jpg" alt="CERVEZA BLUE MOON BOTELLA 330CC">
+                    <h3>CERVEZA BLUE MOON BOTELLA 330CC</h3>
+                    <p>Precio: $1900</p>
+                    <button onclick="agregarAlCarrito(43)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-blue-moon-pack.jpg" alt="CERVEZA BLUE MOON PACK 4 BOTELLAS 330ML">
+                    <h3>CERVEZA BLUE MOON PACK 4 BOTELLAS 330ML</h3>
+                    <p>Precio: $6800</p>
+                    <button onclick="agregarAlCarrito(44)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-quilmes-lata.jpg" alt="CERVEZA QUILMES LATA 354 ML">
+                    <h3>CERVEZA QUILMES LATA 354 ML</h3>
+                    <p>Precio: $1000</p>
+                    <button onclick="agregarAlCarrito(45)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-quilmes-pack.jpg" alt="CERVEZA QUILMES LATA PACK 6X354ML">
+                    <h3>CERVEZA QUILMES LATA PACK 6X354ML</h3>
+                    <p>Precio: $5000</p>
+                    <button onclick="agregarAlCarrito(46)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-stella-retornable.jpg" alt="CERVEZA STELLA ARTOIS RETORNABLE 1 LT">
+                    <h3>CERVEZA STELLA ARTOIS RETORNABLE 1 LT</h3>
+                    <p>Precio: $1800</p>
+                    <button onclick="agregarAlCarrito(47)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-heineken-laton.jpg" alt="CERVEZA HEINEKEN LATON 710 ML">
+                    <h3>CERVEZA HEINEKEN LATON 710 ML</h3>
+                    <p>Precio: $1800</p>
+                    <button onclick="agregarAlCarrito(48)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-coors-light-lata.jpg" alt="CERVEZA COORS LIGHT LATA 355 ML">
+                    <h3>CERVEZA COORS LIGHT LATA 355 ML</h3>
+                    <p>Precio: $1100</p>
+                    <button onclick="agregarAlCarrito(49)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-huella.jpg" alt="CERVEZA HUELLAS RUBIA LAGER BOTELLA 330ML">
+                    <h3>CERVEZA HUELLAS RUBIA LAGER BOTELLA 330ML</h3>
+                    <p>Precio: $2100</p>
+                    <button onclick="agregarAlCarrito(50)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-miller-latton.jpg" alt="CERVEZA MILLER LATON 710 ML">
+                    <h3>CERVEZA MILLER LATON 710 ML</h3>
+                    <p>Precio: $1300</p>
+                    <button onclick="agregarAlCarrito(51)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-budweiser-pack.jpg" alt="CERVEZA BUDWEISER PACK 6 X 355 ML">
+                    <h3>CERVEZA BUDWEISER PACK 6 X 355 ML</h3>
+                    <p>Precio: $6000</p>
+                    <button onclick="agregarAlCarrito(52)">Agregar al carrito</button>
+                </div>
+                
+                <div class="product-card cardindex">
+                    <img src="images/cerveza-sol-retornable.jpg" alt="CERVEZA SOL RETORNABLE 1.2LT">
+                    <h3>CERVEZA SOL RETORNABLE 1.2LT</h3>
+                    <p>Precio: $1500</p>
+                    <button onclick="agregarAlCarrito(53)">Agregar al carrito</button>
+                </div>
+                
+            </div>
         </main>
 
         <!-- Modal para mostrar el carrito -->
